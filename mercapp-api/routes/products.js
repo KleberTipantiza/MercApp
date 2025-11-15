@@ -13,10 +13,17 @@ router.get('/', (req, res) => {
 
 // Get /api/products/:id
 router.get('/:id', (req, res) => {
-    const products = JSON.parse(fs.readFileSync(productsFile))
-    const product = products.find(p => p.id === parseInt(req.params.id))
-    if (!product) return res.status(404).json({ message: 'Producto no encontrado'})
-    res.json(product)
+    try {
+        const products = JSON.parse(fs.readFileSync(productsFile))
+        const product = products.find(p => p.id === parseInt(req.params.id))
+        if (!product) {
+            return res.status(404).json({ message: 'Producto no encontrado'})
+        }
+        res.json(product)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: 'Error del servidor'})
+    }
 })
 
 // Post /api/products
