@@ -2,30 +2,29 @@
     <div>
         <h1>Catálogo de productos</h1>
 
-        <!-- Buscador -->
-        <input v-model="search" placeholder="Buscar producto"/>
-
-        <!-- Filtro por categoría -->
-        <select v-model="selectedCategory">
-            <option value="">Todas las categorías</option>
-            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+        <!-- Buscador por nombre y filtro por categoría -->
+        <div class="filters">
+            <input v-model="search" placeholder="Buscar producto" />
+            <select v-model="selectedCategory">
+                <option value="">Todas las categorías</option>
+                <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                 {{ cat.name }}
-            </option>
-        </select>
+                </option>
+            </select>
+        </div>
 
         <!-- Estado de carga y error -->
         <p v-if="loading">Cargando productos...</p>
         <p v-if="error">Error: {{ error }}</p>
 
         <!-- Listado de productos -->
-        <div v-if="filteredProducts.length">
+        <div v-if="filteredProducts.length" class="product-grid">
             <ProductCard
                 v-for="prod in filteredProducts"
                 :key="prod.id"
                 :product="prod"
                 @added-to-cart="addToCart"
             />
-            </div>
         </div>
         <p v-else>No hay productos que coincidan</p>
     </div>
@@ -35,12 +34,14 @@
 import { ref, computed, onMounted } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { useProducts } from '@/composables/useProducts'
+import { useCartStore } from '@/stores/cart'
 
 // Estado de productos y categorías
 const { products, loading, error, loadProducts } = useProducts()
 const categories = ref([])
 const search = ref('')
 const selectedCategory = ref('')
+const cart = useCartStore()
 
 // Cargar datos al montar
 onMounted(async () => {
@@ -65,7 +66,7 @@ const filteredProducts = computed(() => {
 
 // Evento para añadir al carrito
 const addToCart = (product) => {
-    console.log('Producto añadido:', product)
+    cart.addItem(product)
 }
 </script>
 

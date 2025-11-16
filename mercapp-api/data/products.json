@@ -4,7 +4,7 @@
     "name": "Laptop HP Victus 16",
     "description": "Laptop gamer de alta performance con tarjeta gráfica dedicada.",
     "price": 750,
-    "imageUrl": "https://www.hp.com/content/dam/sites/worldwide/personal-computers/consumer/gaming/laptops/2021-victus-16-1-intel/Victus_16_PerformanceBlue_screen_desktop.png",
+    "imageUrl": "https://pycca.vteximg.com.br/arquivos/ids/289316-600-600/O23662.png?v=638914135082770000",
     "categoryId": 1,
     "stock": 8
   },
@@ -31,7 +31,7 @@
     "name": "Audífonos Bose QuietComfort 35 II",
     "description": "Audífonos con cancelación de ruido y sonido de alta calidad.",
     "price": 299,
-    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbRnEcf6u_Uc-xNFbYCSBJva-rT53Y_HaMFA&s",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8ghP7ofw9tqE8WUhK6bx2Dt-zFilaJfgezA&s",
     "categoryId": 4,
     "stock": 10
   },

@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// Importar las rutas
-import Home from '@/views/Home.vue'
-import ProductDetail from '@/views/ProductDetail.vue'
-import Cart from '@/views/Cart.vue'
-import About from '@/views/About.vue'
-import NotFound from '@/views/NotFound.vue'
+// Lazy loading con import()
+const Home = () => import('@/views/Home.vue')
+const ProductDetail = () => import('@/views/ProductDetail.vue')
+const ProductForm = () => import('@/views/ProductForm.vue')
+const About = () => import('@/views/About.vue')
+const Cart = () => import('@/views/Cart.vue')
+const NotFound = () => import('@/views/NotFound.vue')
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -13,6 +14,8 @@ const routes = [
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/about', name: 'About', component: About },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  { path: '/product/new', name: 'NewProduct', component: ProductForm },
+  { path: '/product/:id/edit', name: 'EditProduct', component: ProductForm }
 ]
 
 const router = createRouter({

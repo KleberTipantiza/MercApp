@@ -15,5 +15,5 @@ app.use('/api/products', productRoutes)
 app.use('/api/categories', categoryRoutes)
 
 app.listen(PORT, () => {
-  console.log(`El servidor está corriendo en http://localhost:${PORT}`)
+  console.log(`El servidor está corriendo en http://localhost:3000, iniciar tambien el front-end para probar la aplicación`)
 })
