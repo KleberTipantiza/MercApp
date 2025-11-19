@@ -11,6 +11,13 @@ const PORT = 3000
 app.use(cors())
 app.use(bodyParser.json())
 
+// Middleware de registro simple (para propósitos de depuración)
+app.use((req, res, next) => {
+  console.log('Petición recibida:', req.method, req.url)
+  next()
+})
+
+
 app.use('/api/products', productRoutes)
 app.use('/api/categories', categoryRoutes)
 

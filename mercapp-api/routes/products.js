@@ -26,21 +26,35 @@ router.get('/:id', (req, res) => {
     }
 })
 
-// Post /api/products
+// POST /api/products
 router.post('/', (req, res) => {
+  try {
     const products = JSON.parse(fs.readFileSync(productsFile))
     const newProduct = req.body
 
-    // Validacion minima 
-    if (!newProduct.nombre || newProduct.precio <=0 || newProduct.stock < 0) {
-        return res.status(400).json({message: 'Datos invalidos'})
+    // Validación completa según estructura de products.json
+    if (
+      !newProduct.name ||
+      !newProduct.description ||
+      !newProduct.imageUrl ||
+      !newProduct.categoryId ||
+      newProduct.price <= 0 ||
+      newProduct.stock < 0
+    ) {
+      return res.status(400).json({ message: 'Datos inválidos' })
     }
 
     newProduct.id = products.length ? products[products.length - 1].id + 1 : 1
     products.push(newProduct)
     fs.writeFileSync(productsFile, JSON.stringify(products, null, 2))
+
     res.status(201).json(newProduct)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error al crear producto' })
+  }
 })
+
 
 // Put /api/products/:id
 router.put('/:id', (req, res) => {
@@ -48,7 +62,7 @@ router.put('/:id', (req, res) => {
     const index = products.findIndex(p => p.id === parseInt(req.params.id))
     if (index === -1) return res.status(404).json({ message: 'Producto no encontrado'})
 
-    const updatedProduct = { ...products[index], ...reqq.body }
+    const updatedProduct = { ...products[index], ...req.body }
     products[index] = updatedProduct
     fs.writeFileSync(productsFile, JSON.stringify(products, null, 2))
     res.json(updatedProduct)

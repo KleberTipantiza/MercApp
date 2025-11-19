@@ -10,12 +10,13 @@ const NotFound = () => import('@/views/NotFound.vue')
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/product/:id', name: 'ProductDetail', component: ProductDetail },
+  { path: '/product/new', name: 'NewProduct', component: ProductForm },
+  { path: '/product/:id/edit', name: 'EditProduct', component: ProductForm },
+
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/about', name: 'About', component: About },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-  { path: '/product/new', name: 'NewProduct', component: ProductForm },
-  { path: '/product/:id/edit', name: 'EditProduct', component: ProductForm }
+  { path: '/product/:id', name: 'ProductDetail', component: ProductDetail }
 ]
 
 const router = createRouter({

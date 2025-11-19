@@ -11,6 +11,8 @@
                 {{ cat.name }}
                 </option>
             </select>
+            <!-- Botón para crear nuevo producto -->
+            <button @click="$router.push('/product/new')">Nuevo producto</button>
         </div>
 
         <!-- Estado de carga y error -->

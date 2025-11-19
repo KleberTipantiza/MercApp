@@ -1,11 +1,16 @@
 <template>
-    <diiv>'
-        <h1>{{ isEdit ? 'Editar producto' : 'Editar producto' : 'Nuevo producto' }}</h1>
+    <div class="form-container">
+        <h1>{{ isEdit ? 'Editar producto' : 'Nuevo producto' }}</h1>
 
         <form @submit.prevent="saveProduct">
             <div>
                 <label>Nombre:</label>
                 <input v-model="product.name" required />
+            </div>
+
+            <div>
+                <label>Descripción:</label>
+                <input v-model="product.description" required />
             </div>
 
             <div>
@@ -15,7 +20,7 @@
 
             <div>
                 <label>Categoría:</label>
-                <select v-model="product.categoryId" required>
+                <select v-model.number="product.categoryId" required>
                     <option value="">Seleccione una categoría</option>
                     <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                         {{ cat.name }}
@@ -25,7 +30,7 @@
 
             <div>
                 <label>Stock:</label>
-                <input type="number" v-model.number="product.stock" min="0" required />
+                <input type="number" v-model.number="product.stock" min="1" required />
             </div>
 
             <div>
@@ -49,23 +54,25 @@ const router = useRouter()
 
 const product = ref({
     name: '',
+    description: '',
     price: 0,
-    categoryId: '',
+    categoryId: null,
     stock: 0,
     imageUrl: ''
 })
 
 const categories = ref([])
 const error =ref(null)
-const isEdit = route.path.includes('/edit')
+const id = route.params.id
+const isEdit = ref(id !== undefined)
 
-// Cargar categorias
+// Cargar producto y categorías si es edición
 onMounted(async () => {
     const res = await fetch('http://localhost:3000/api/categories')
     categories.value = await res.json()
 
-    if (isEdit) {
-        const resProd = await fetch(`http://localhost:3000/api/products/${route.params.id}`)
+    if (isEdit.value) {
+        const resProd = await fetch(`http://localhost:3000/api/products/${id}`)
         product.value = await resProd.json()
     }
 })
@@ -73,9 +80,9 @@ onMounted(async () => {
 // Guardar producto
 const saveProduct = async () => {
     try {
-        const method = isEdit ? 'PUT' : 'POST'
-        const url = isEdit
-            ? `http://localhost:3000/api/products/${route.params.id}`
+        const method = isEdit.value ? 'PUT' : 'POST'
+        const url = isEdit.value
+            ? `http://localhost:3000/api/products/${id}`
             : 'http://localhost:3000/api/products'
 
         const res = await fetch(url, {
@@ -86,9 +93,10 @@ const saveProduct = async () => {
 
         if (!res.ok) throw new Error(`Error ${res.status}`)
 
-        router.push('/') // volver a la lista de productos
+        router.push('/')
     } catch (err) {
         error.value = err.message
     }
 }
+
 </script>

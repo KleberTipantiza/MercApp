@@ -5,6 +5,7 @@
         <p>{{ product.description }}</p>
         <p>Precio: ${{ product.price }}</p>
         <button @click="$emit('added-to-cart', product)">Añadir al carrito</button>
+        <button @click="$router.push(`/product/${product.id}/edit`)">Editar</button>
     </div>
 </template>
 
