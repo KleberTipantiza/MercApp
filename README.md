@@ -15,12 +15,17 @@ El archivo `mercapp-api/seed.json` contiene los productos y categorías iniciale
 Para el Backend (Express) se debe ejecutar los siguientes comandos en la terminal
 
 cd mercapp-api
+
 npm install
+
 npm run dev (Esto inicia el servidor en http://localhost:3000.)
 
 Para el Frontend (Vue) se debe ejecutar los siguientes comandos, dentro de otro terminal
+
 cd vue-project
+
 npm install
+
 npm run dev (Esto inicia la SPA en http://localhost:5173.)
 
 ## 3. Recomendaciones
